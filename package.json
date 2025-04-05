@@ -1,0 +1,39 @@
+{
+    "name": "medusa-assignment-app",
+    "version": "0.0.1",
+    "description": "Medusa E-commerce Backend for Assignment",
+    "author": "Student",
+    "license": "MIT",
+    "scripts": {
+      "seed": "medusa seed -f ./data/seed.json",
+      "build": "babel src -d dist --extensions \".ts,.js\"",
+      "start": "medusa start",
+      "dev": "medusa develop",
+      "build:admin": "medusa-admin build"
+    },
+    "dependencies": {
+      "@medusajs/medusa": "^1.12.0",
+      "@medusajs/medusa-cli": "^1.3.9",
+      "medusa-fulfillment-manual": "^1.1.37",
+      "medusa-interfaces": "^1.3.7",
+      "medusa-payment-manual": "^1.0.23",
+      "medusa-payment-stripe": "^2.0.0",
+      "typeorm": "^0.3.16"
+    },
+    "devDependencies": {
+      "@babel/cli": "^7.21.5",
+      "@babel/core": "^7.21.8",
+      "@babel/preset-typescript": "^7.21.5",
+      "babel-preset-medusa-package": "^1.1.19"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/roohmeiy/medusa.git"
+    },
+    "keywords": [
+      "medusa",
+      "ecommerce",
+      "headless",
+      "api"
+    ]
+  }
