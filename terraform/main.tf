@@ -16,7 +16,7 @@ resource "aws_vpc" "medusa_vpc" {
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.medusa_vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "${var.aws_region}a"
+  availability_zone       = "${var.aws_region}b"
   map_public_ip_on_launch = true
 
   tags = {
@@ -27,7 +27,7 @@ resource "aws_subnet" "public_subnet_1" {
 resource "aws_subnet" "public_subnet_2" {
   vpc_id                  = aws_vpc.medusa_vpc.id
   cidr_block              = "10.0.2.0/24"
-  availability_zone       = "${var.aws_region}b"
+  availability_zone       = "${var.aws_region}c"
   map_public_ip_on_launch = true
 
   tags = {
@@ -132,12 +132,12 @@ resource "aws_db_instance" "medusa_db" {
   allocated_storage      = 20
   storage_type           = "gp2"
   engine                 = "postgres"
-  engine_version         = "14.3"
+  engine_version         = "16.4"
   instance_class         = "db.t3.micro"
   db_name                = "medusa"
   username               = var.db_username
   password               = var.db_password
-  parameter_group_name   = "default.postgres14"
+  # parameter_group_name   = "default.postgres14"
   skip_final_snapshot    = true
   publicly_accessible    = false
   vpc_security_group_ids = [aws_security_group.medusa_db_sg.id]

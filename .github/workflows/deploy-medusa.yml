@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: us-west-1
   ECR_REPOSITORY: medusa-backend
 
 jobs:
@@ -46,41 +46,41 @@ jobs:
         # Set output for use in next step
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
-    - name: Download Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.4.6
+    # - name: Download Terraform
+    #   uses: hashicorp/setup-terraform@v2
+    #   with:
+    #     terraform_version: 1.4.6
         
-    - name: Terraform Init
-      working-directory: ./terraform
-      run: terraform init
+    # - name: Terraform Init
+    #   working-directory: ./terraform
+    #   run: terraform init
       
-    - name: Terraform Validate
-      working-directory: ./terraform
-      run: terraform validate
+    # - name: Terraform Validate
+    #   working-directory: ./terraform
+    #   run: terraform validate
       
-    - name: Terraform Plan
-      working-directory: ./terraform
-      run: |
-        terraform plan \
-          -var="ecr_repository_url=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}" \
-          -var="db_username=${{ secrets.DB_USERNAME }}" \
-          -var="db_password=${{ secrets.DB_PASSWORD }}" \
-          -var="cookie_secret=${{ secrets.COOKIE_SECRET }}" \
-          -var="jwt_secret=${{ secrets.JWT_SECRET }}" \
-          -var="aws_region=${{ env.AWS_REGION }}"
+    # - name: Terraform Plan
+    #   working-directory: ./terraform
+    #   run: |
+    #     terraform plan \
+    #       -var="ecr_repository_url=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}" \
+    #       -var="db_username=${{ secrets.DB_USERNAME }}" \
+    #       -var="db_password=${{ secrets.DB_PASSWORD }}" \
+    #       -var="cookie_secret=${{ secrets.COOKIE_SECRET }}" \
+    #       -var="jwt_secret=${{ secrets.JWT_SECRET }}" \
+    #       -var="aws_region=${{ env.AWS_REGION }}"
       
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main'
-      working-directory: ./terraform
-      run: |
-        terraform apply -auto-approve \
-          -var="ecr_repository_url=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}" \
-          -var="db_username=${{ secrets.DB_USERNAME }}" \
-          -var="db_password=${{ secrets.DB_PASSWORD }}" \
-          -var="cookie_secret=${{ secrets.COOKIE_SECRET }}" \
-          -var="jwt_secret=${{ secrets.JWT_SECRET }}" \
-          -var="aws_region=${{ env.AWS_REGION }}"
+    # - name: Terraform Apply
+    #   if: github.ref == 'refs/heads/main'
+    #   working-directory: ./terraform
+      # run: |
+      #   terraform apply -auto-approve \
+      #     -var="ecr_repository_url=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}" \
+      #     -var="db_username=${{ secrets.DB_USERNAME }}" \
+      #     -var="db_password=${{ secrets.DB_PASSWORD }}" \
+      #     -var="cookie_secret=${{ secrets.COOKIE_SECRET }}" \
+      #     -var="jwt_secret=${{ secrets.JWT_SECRET }}" \
+      #     -var="aws_region=${{ env.AWS_REGION }}"
           
     - name: Force ECS service update
       if: github.ref == 'refs/heads/main'
