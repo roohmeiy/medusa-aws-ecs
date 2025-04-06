@@ -1,5 +1,5 @@
 aws_region = "us-west-1"
-ecr_repository_url = "YOUR_AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/medusa-backend"
+ecr_repository_url = "YOUR_AWS_ACCOUNT_ID.dkr.ecr.us-west-1.amazonaws.com/medusa-backend"
 db_username = "pihu"
 db_password = "password"
 cookie_secret = "91dec941486132d9c7b2420a9191dc8fff70798c768ff5a079c3f0e3de2d7ff5"

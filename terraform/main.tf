@@ -325,6 +325,11 @@ resource "aws_lb_listener" "medusa_listener" {
   }
 }
 
+# ECS repository
+resource "aws_ecr_repository" "medusa_backend" {
+  name = "medusa-backend"
+}
+
 # ECS Service
 resource "aws_ecs_service" "medusa_service" {
   name            = "medusa-service"
