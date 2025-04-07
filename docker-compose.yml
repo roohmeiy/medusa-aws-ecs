@@ -1,4 +1,46 @@
-version: '3'
+# services:
+#   medusa:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "9000:9000"
+#     environment:
+#       - NODE_ENV=development
+#       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/medusa
+#       - REDIS_URL=redis://redis:6379
+#       - JWT_SECRET=your_jwt_secret
+#       - COOKIE_SECRET=your_cookie_secret
+#     volumes:
+#       - .:/app
+#       - node_modules:/app/node_modules
+#     depends_on:
+#       - postgres
+#       - redis
+
+#   postgres:
+#     image: postgres:14
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#       - POSTGRES_DB=medusa
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+#   redis:
+#     image: redis:6
+#     ports:
+#       - "6379:6379"
+#     volumes:
+#       - redis_data:/data
+
+# volumes:
+#   node_modules:
+#   postgres_data:
+#   redis_data:
+
 
 services:
   medusa:
@@ -7,12 +49,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
+    env_file:
+      - .env
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/medusa
       - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=your_jwt_secret
-      - COOKIE_SECRET=your_cookie_secret
     volumes:
       - .:/app
       - node_modules:/app/node_modules

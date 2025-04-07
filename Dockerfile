@@ -1,18 +1,19 @@
 # Dockerfile for Medusa Assignment
 
-FROM node:18-alpine
+FROM node:18
 
 WORKDIR /app
 
 # Install system dependencies
-RUN apk add --no-cache python3 make g++
+#RUN apk add --no-cache python3 make g++
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
 # Copy package files
 COPY package.json .
 COPY medusa-config.js .
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application
 COPY . .
@@ -23,8 +24,7 @@ RUN mkdir -p src/api src/services src/subscribers data
 # Set environment variables with default values
 ENV NODE_ENV=development
 ENV PORT=9000
-ENV JWT_SECRET=40c752ae0101bbd07e85d93e51c8635ad799e6a46fa76ef2c7e0e0b0bd78d750
-ENV COOKIE_SECRET=91dec941486132d9c7b2420a9191dc8fff70798c768ff5a079c3f0e3de2d7ff5
+# Pass JWT_SECRET and COOKIE_SECRET as build arguments from .env file while running docker container
 
 # Expose port
 EXPOSE 9000

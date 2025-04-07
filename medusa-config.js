@@ -37,7 +37,15 @@ const plugins = [
   },
 ];
 
-const modules = {};
+// const modules = {};
+const modules = {
+  eventBus: {
+    resolve: "@medusajs/event-bus",
+    options: {
+      strategy: "local",
+    },
+  },
+};
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
 const projectConfig = {
