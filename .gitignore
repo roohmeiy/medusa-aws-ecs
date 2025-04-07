@@ -1,3 +1,4 @@
 terraform/.terraform*
 crash.log
 node_modules
+terraform/terraform.tfvars
