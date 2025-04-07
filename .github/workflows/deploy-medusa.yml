@@ -2,6 +2,10 @@ name: Deploy Medusa to AWS ECS
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '.github/workflows/**'
+      - '**/*.md'
+      - 'README*'
 env:
   AWS_REGION: us-west-1
   ECR_REPOSITORY: medusa-backend
